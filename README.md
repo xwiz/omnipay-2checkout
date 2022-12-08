@@ -197,7 +197,8 @@ If you discover any security related issues, please email me@w3guy.com instead o
 
 ## Credits
 
-- [Agbonghama Collins](https://github.com/xwiz)
+- [Agbonghama Collins](https://github.com/w3guy)
+- [Chibueze Opata](https://github.com/xwiz)
 - [All Contributors](../../contributors)
 
 ## License
