@@ -17,7 +17,7 @@ class StopRecurringResponse extends AbstractResponse implements ResponseInterfac
      */
     public function isSuccessful()
     {
-        return !isset($this->data['errors']) && $this->data['response_code'] === 'OK';
+        return !isset($this->data['errors']) && $this->data['response_code'] == 'OK';
     }
 
     /**
@@ -37,7 +37,7 @@ class StopRecurringResponse extends AbstractResponse implements ResponseInterfac
      */
     public function getCode()
     {
-        return $this->data['response_code'] ?? null;
+        return isset($this->data['response_code']) ? $this->data['response_code'] : null;
     }
 
     public function getLineItems()
@@ -50,6 +50,8 @@ class StopRecurringResponse extends AbstractResponse implements ResponseInterfac
      */
     public function getMessage()
     {
-        return $this->data['response_message'] ?? json_encode($this->data['errors']);
+        return isset($this->data['response_message']) ?
+            $this->data['response_message'] :
+            json_encode($this->data['errors']);
     }
 }

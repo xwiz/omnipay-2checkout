@@ -37,7 +37,7 @@ class DetailSaleResponse extends AbstractResponse implements ResponseInterface
      */
     public function getCode()
     {
-        return $this->data['response_code'] ?? null;
+        return isset($this->data['response_code']) ? $this->data['response_code'] : null;
     }
 
     public function getLineItems()
@@ -50,6 +50,6 @@ class DetailSaleResponse extends AbstractResponse implements ResponseInterface
      */
     public function getMessage()
     {
-        return $this->data['sale'] ?? json_encode($this->data['errors']);
+        return isset($this->data['sale']) ? $this->data['sale'] : json_encode($this->data['errors']);
     }
 }

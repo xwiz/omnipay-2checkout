@@ -21,12 +21,12 @@ class CompletePurchaseResponse extends AbstractResponse
      */
     public function getTransactionReference()
     {
-        return $this->data['order_number'] ?? null;
+        return isset($this->data['order_number']) ? $this->data['order_number'] : null;
     }
 
     public function getTransactionInvoice()
     {
-        return $this->data['invoice_id'] ?? null;
+        return isset($this->data['invoice_id']) ? $this->data['invoice_id'] : null;
     }
 
     /**
@@ -36,6 +36,6 @@ class CompletePurchaseResponse extends AbstractResponse
      */
     public function getTransactionId()
     {
-        return $this->data['merchant_order_id'] ?? null;
+        return isset($this->data['merchant_order_id']) ? $this->data['merchant_order_id'] : null;
     }
 }

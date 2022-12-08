@@ -17,7 +17,7 @@ class RefundResponse extends AbstractResponse implements ResponseInterface
      */
     public function isSuccessful()
     {
-        return isset($this->data['response_code']) ? $this->data['response_code'] === 'OK' : false;
+        return isset($this->data['response_code']) ? $this->data['response_code'] == 'OK' : false;
     }
 
     /**
@@ -37,7 +37,7 @@ class RefundResponse extends AbstractResponse implements ResponseInterface
      */
     public function getCode()
     {
-        return $this->data['response_code'] ?? null;
+        return isset($this->data['response_code']) ? $this->data['response_code'] : null;
     }
 
     /**
@@ -45,7 +45,9 @@ class RefundResponse extends AbstractResponse implements ResponseInterface
      */
     public function getMessage()
     {
-        return $this->data['response_message'] ?? json_encode($this->data['errors'] ?? []);
+        return isset($this->data['response_message']) ?
+            $this->data['response_message'] :
+            json_encode($this->data['errors']);
     }
 
     /**

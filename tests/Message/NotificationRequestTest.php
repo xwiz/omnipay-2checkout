@@ -18,7 +18,7 @@ class NotificationRequestTest extends TestCase
                                         // directly passing an array of the POSTed data would do but to prevent
                                         // duplicate array in test, i made it seem like an API response then
                                         // get the response as an array using json() method.
-                                        json_decode($this->getMockHttpResponse('FraudChangeNotificationFail.txt')->getBody()->getContents(), true)
+                                        $this->getMockHttpResponse('FraudChangeNotificationFail.txt')->json()
                                     )
                                 )
                                 ->setMethods(null)
@@ -43,7 +43,7 @@ class NotificationRequestTest extends TestCase
     {
         $data     = $this->request->getData();
         $response = $this->request->sendData($data);
-        $this->assertInstanceOf(NotificationResponse::class, $response);
+        $this->assertSame('Omnipay\TwoCheckoutPlus\Message\NotificationResponse', get_class($response));
     }
 
 }

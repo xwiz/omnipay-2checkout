@@ -84,17 +84,17 @@ class GatewayTest extends GatewayTestCase
 
     public function testRefund()
     {
-        $request = $this->gateway->refund([
+        $request = $this->gateway->refund(array(
             'adminUsername' => 'username',
             'adminPassword' => 'password',
             'saleId' => 106235469964,
             'comment' => 'Buyer deserved a refund',
             'category' => 13
-        ])->send();
+        ))->send();
 
         $this->assertSame(false, $request->isSuccessful());
         $this->assertSame(false, $request->isRedirect());
-        $this->assertSame('[]', $request->getMessage());
+        $this->assertSame('[{"code":"UNAUTHORIZED","message":"Authentication failed"}]', $request->getMessage());
         $this->assertNull($request->getCode());
     }
 
@@ -157,7 +157,7 @@ class GatewayTest extends GatewayTestCase
 
         $this->getHttpRequest()->initialize(
             array(),
-            json_decode($this->getMockHttpResponse('FraudChangeNotificationFail.txt')->getBody()->getContents(), true),
+            $this->getMockHttpResponse('FraudChangeNotificationFail.txt')->json()
         );
 
         $response = $this->gateway->acceptNotification()->send();

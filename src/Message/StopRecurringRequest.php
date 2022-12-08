@@ -3,8 +3,6 @@
 namespace Omnipay\TwoCheckoutPlus\Message;
 
 use Guzzle\Http\Exception\BadResponseException;
-use Omnipay\Common\Http\Exception\NetworkException;
-use Omnipay\Common\Http\Exception\RequestException;
 
 /**
  * Purchase Request.
@@ -33,11 +31,14 @@ class StopRecurringRequest extends AbstractRequest
      */
     public function getRequestHeaders()
     {
-        return [
+        return array(
             'Accept' => 'application/json',
-            'Content-Type' => 'application/json',
-            'Authorization' => 'Basic ' . base64_encode($this->getAdminUsername() . ':' . $this->getAdminPassword()),
-        ];
+        );
+    }
+
+    public function isNotNull($value)
+    {
+        return !is_null($value);
     }
 
     public function getData()
@@ -56,7 +57,7 @@ class StopRecurringRequest extends AbstractRequest
         }
 
         $data = array_filter($data, function ($value) {
-            return $value !== null;
+            return !is_null($value);
         });
 
         // remove unwanted data
@@ -74,20 +75,21 @@ class StopRecurringRequest extends AbstractRequest
     public function sendData($data)
     {
         $payload = $data;
-        unset($payload['admin_username'], $payload['admin_password']);
+        unset($payload['admin_username']);
+        unset($payload['admin_password']);
 
         try {
-            $response = $this->httpClient->request(
-                'POST',
+            $response = $this->httpClient->post(
                 $this->getEndpoint(),
                 $this->getRequestHeaders(),
-                json_encode($payload)
-            );
-            $json = json_decode($response->getBody()->getContents(), true);
+                $payload
+            )->setAuth($data['admin_username'], $data['admin_password'])->send();
 
-            return new StopRecurringResponse($this, $json ?? []);
-        } catch (RequestException|NetworkException $e) {
-            return new StopRecurringResponse($this, ['error' => $e->getMessage()]);
+            return new StopRecurringResponse($this, $response->json());
+        } catch (BadResponseException $e) {
+            $response = $e->getResponse();
+
+            return new StopRecurringResponse($this, $response->json());
         }
     }
 }

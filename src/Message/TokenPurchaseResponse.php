@@ -17,9 +17,9 @@ class TokenPurchaseResponse extends AbstractResponse implements ResponseInterfac
      */
     public function isSuccessful()
     {
-        $responseCode = $this->data['response']['responseCode'] ?? null;
+        $responseCode = $this->data['response']['responseCode'];
 
-        return $responseCode === 'APPROVED';
+        return isset($responseCode) ? $responseCode == 'APPROVED' : false;
     }
 
     /**
@@ -55,7 +55,7 @@ class TokenPurchaseResponse extends AbstractResponse implements ResponseInterfac
      */
     public function getTransactionReference()
     {
-        return $this->data['response']['orderNumber'] ?? null;
+        return isset($this->data['response']['orderNumber']) ? $this->data['response']['orderNumber'] : null;
     }
 
     /**
@@ -63,6 +63,6 @@ class TokenPurchaseResponse extends AbstractResponse implements ResponseInterfac
      */
     public function getTransactionId()
     {
-        return $this->data['response']['merchantOrderId'] ?? null;
+        return isset($this->data['response']['merchantOrderId']) ? $this->data['response']['merchantOrderId'] : null;
     }
 }

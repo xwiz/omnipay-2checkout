@@ -13,7 +13,7 @@ class PurchaseRequest extends AbstractRequest
     {
         $this->validate('accountNumber', 'returnUrl');
 
-        $data = [];
+        $data = array();
         $data['sid'] = $this->getAccountNumber();
         $data['mode'] = '2CO';
         $data['merchant_order_id'] = $this->getTransactionId();
@@ -87,7 +87,7 @@ class PurchaseRequest extends AbstractRequest
         }
 
         $data = array_filter($data, function ($value) {
-            return $value !== null;
+            return !is_null($value);
         });
 
         return $data;
