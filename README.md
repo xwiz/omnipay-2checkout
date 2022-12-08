@@ -7,7 +7,6 @@
 [![Build Status](https://img.shields.io/travis/xwiz/omnipay-2checkout/master.svg?style=flat-square)](https://travis-ci.org/xwiz/omnipay-2checkout)
 [![Coverage Status](https://coveralls.io/repos/xwiz/omnipay-2checkout/badge.svg?branch=master&service=github)](https://coveralls.io/github/xwiz/omnipay-2checkout?branch=master)
 [![Code Climate](https://codeclimate.com/github/xwiz/omnipay-2checkout/badges/gpa.svg)](https://codeclimate.com/github/xwiz/omnipay-2checkout)
-[![Dependency Status](https://www.versioneye.com/user/projects/56790f2210799700300013b8/badge.svg?style=flat)](https://www.versioneye.com/user/projects/56790f2210799700300013b8)
 [![Total Downloads](https://img.shields.io/packagist/dt/xwiz/omnipay-2checkout.svg?style=flat-square)](https://packagist.org/packages/xwiz/omnipay-2checkout)
 
 
